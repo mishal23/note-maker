@@ -1,0 +1,48 @@
+h2{
+    color: orange;
+}
+body{
+    background-color: lightgoldenrodyellow;
+}
+
+.done-true{
+    color: black;
+    opacity: 0.7;
+    text-decoration: line-through;
+    font-size: 20px;
+}
+.done-false{
+    font-size: 20px;
+}
+.checkbox{
+    zoom: 2;
+    position: relative;
+}
+.addbutton{
+    background-color: darkorange;
+    border-color: darkorange;
+    color: black;
+    font-weight: bold;
+    padding: 7px 7px 7px 7px;
+    font-size: 15px;
+}
+.text{
+    padding: 7px 7px 7px 7px;
+}
+.removebutton{
+    background-color: gold;
+    border-color: gold;
+    float: right;
+    position: relative;
+    padding: 7px 7px 7px 7px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.head{
+    background-color: darkorange;
+    color: white;
+    text-align: center;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
