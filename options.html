@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="notemaker">
+<head>
+    <title>NoteMaker</title>
+
+    <link rel="stylesheet" href="cdn/bootstrap.min.css">
+    <script src="cdn/angular.min.js"></script>
+    <script src="cdn/jquery-3.2.1.min.js"></script>
+    <script src="cdn/tether.min.js"></script>
+    <script src="cdn/bootstrap.min.js"></script>
+    <script src="popup.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h1 class="head">NoteMaker Options</h1>
+
+<div class="container" ng-controller="DisplayList">
+    <br>
+    <form class="container1">
+        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
+        <p></p>
+        <button type="button" class="addbutton" ng-click="add()">Add</button>
+        <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
+    </form>
+    <br>
+    <br>
+    <ul ng-repeat="list in lists track by $index">
+        <input type="checkbox" ng-model="list.done" class="checkbox">
+        <span class="done-{{list.done}}">
+        {{list.title}}
+    </ul>
+    <br>
+</div>
+
+</body>
+</html>
