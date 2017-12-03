@@ -22,20 +22,21 @@ body{
     background-color: darkorange;
     border-color: darkorange;
     color: black;
-    position: relative;
     font-weight: bold;
-    padding: 7px 5px;
+    padding: 7px 7px 7px 7px;
     font-size: 15px;
 }
 
 .editbutton{
-    background-color: #e0ffff;
-    border-color: #e0ffff;
-    color: black;
     position: relative;
+    border-radius: 5px;
+    background-color: #00ffff;
+    border-color: #00ffff;
+    color: black;
     font-weight: bold;
-    padding: 7px 5px;
+    padding: 0px 7px;
     font-size: 15px;
+    float: right;
 }
 .text{
     padding: 7px 7px 7px 7px;
@@ -45,7 +46,7 @@ body{
     border-color: gold;
     float: right;
     position: relative;
-    padding: 7px 3px;
+    padding: 7px 7px 7px 7px;
     font-size: 15px;
     font-weight: bold;
 }
