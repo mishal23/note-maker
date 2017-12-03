@@ -25,6 +25,26 @@ app.controller('DisplayList',function($scope,$timeout) {
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
     };
+
+    $scope.edit=function () {
+
+        if (!this.list.done){
+            this.list.done=true;
+            $scope.addTitle=this.list.title;
+            document.getElementById('input').focus();
+        }
+        else{
+            this.list.title=$scope.addTitle;
+            this.list.done=false;
+            $scope.addTitle='';
+        }
+
+        localStorage.setItem('lists',JSON.stringify($scope.lists));
+        //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
+   
+    }
+
+
     $scope.remove=function () {
 
         var oldList=$scope.lists;
