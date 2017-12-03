@@ -17,9 +17,10 @@
 <div class="container" ng-controller="DisplayList">
     <br>
     <form class="container1">
-        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
+        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text" id="input"/>
         <p></p>
         <button type="button" class="addbutton" ng-click="add()">Add</button>
+         <button type="button" class="editbutton" ng-click="edit()">Edit</button>
         <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
     </form>
     <br>

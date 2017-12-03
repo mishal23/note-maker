@@ -22,8 +22,19 @@ body{
     background-color: darkorange;
     border-color: darkorange;
     color: black;
+    position: relative;
     font-weight: bold;
-    padding: 7px 7px 7px 7px;
+    padding: 7px 5px;
+    font-size: 15px;
+}
+
+.editbutton{
+    background-color: #e0ffff;
+    border-color: #e0ffff;
+    color: black;
+    position: relative;
+    font-weight: bold;
+    padding: 7px 5px;
     font-size: 15px;
 }
 .text{
@@ -34,7 +45,7 @@ body{
     border-color: gold;
     float: right;
     position: relative;
-    padding: 7px 7px 7px 7px;
+    padding: 7px 3px;
     font-size: 15px;
     font-weight: bold;
 }

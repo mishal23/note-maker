@@ -25,6 +25,17 @@ app.controller('DisplayList',function($scope,$timeout) {
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
     };
+
+    $scope.edit=function () {
+        a=$scope.remove();
+        $scope.addTitle=a.title;
+        document.getElementById('input').focus();
+        
+        localStorage.setItem('lists',JSON.stringify($scope.lists));
+        //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
+   
+    };
+
     $scope.remove=function () {
 
         var oldList=$scope.lists;

@@ -25,17 +25,32 @@ app.controller('DisplayList',function($scope,$timeout) {
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
     };
-    $scope.remove=function () {
 
+    $scope.edit=function () {
+        a=$scope.remove();
+        $scope.addTitle=a.title;
+        document.getElementById('input').focus();
+        
+        localStorage.setItem('lists',JSON.stringify($scope.lists));
+        //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
+   
+    };
+    
+    $scope.remove=function () {
+        var a;
         var oldList=$scope.lists;
         $scope.lists=[];
         angular.forEach(oldList,function (todo){
             if (!todo.done) {
                 $scope.lists.push(todo);
             }
+            else{
+                a=todo;
+            }
         });
 
         localStorage.setItem('lists',JSON.stringify($scope.lists));
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
+        return a;
     };
 });
