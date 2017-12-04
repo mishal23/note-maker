@@ -43,6 +43,7 @@ app.controller('DisplayList',function($scope,$timeout) {
    
     }
 
+
     $scope.remove=function () {
 
         var oldList=$scope.lists;
