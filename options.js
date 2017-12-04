@@ -23,6 +23,7 @@ app.controller('DisplayList',function($scope,$timeout) {
         }
         add=document.getElementsByClassName('addbutton');
     	add[0].innerHTML='Add';
+    	
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
