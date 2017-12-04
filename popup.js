@@ -32,7 +32,6 @@ app.controller('DisplayList',function($scope,$timeout) {
     $scope.edit=function () {
     	add=document.getElementsByClassName('addbutton');
     	add[0].innerHTML='Update';
-    	
     	this.list.done=true;
 		a=$scope.remove();
 		$scope.addTitle=a.title;
