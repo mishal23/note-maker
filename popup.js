@@ -21,24 +21,24 @@ app.controller('DisplayList',function($scope,$timeout) {
             $scope.lists.push({title: $scope.addTitle,done:false});
             $scope.addTitle='';
         }
+       	add=document.getElementsByClassName('addbutton');
+    	add[0].innerHTML='Add';
+
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
     };
 
     $scope.edit=function () {
+    	add=document.getElementsByClassName('addbutton');
+    	add[0].innerHTML='Update';
+    	this.list.done=true;
+		a=$scope.remove();
+		$scope.addTitle=a.title;
+		document.getElementById('input').focus();
 
-        if (!this.list.done){
-            this.list.done=true;
-            $scope.addTitle=this.list.title;
-            document.getElementById('input').focus();
-        }
-        else{
-            this.list.title=$scope.addTitle;
-            this.list.done=false;
-            $scope.addTitle='';
-        }
 
+        
         localStorage.setItem('lists',JSON.stringify($scope.lists));
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
    
