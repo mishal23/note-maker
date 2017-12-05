@@ -17,19 +17,18 @@
 <div class="container" ng-controller="DisplayList">
     <br>
     <form class="container1">
-        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text" id="input"/>
+        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
         <p></p>
         <button type="button" class="addbutton" ng-click="add()">Add</button>
         <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
     </form>
     <br>
     <br>
-    <ul ng-repeat="list in lists track by $index">
+    <ul ng-repeat="list in lists | orderBy: '-date' track by $index">
         <input type="checkbox" ng-model="list.done" class="checkbox">
         <span class="done-{{list.done}}">
-        {{list.title}}
+        {{list.title}}    
         <button type="button" class="editbutton" ng-click="edit()">Edit</button>
-
     </ul>
     <br>
 </div>

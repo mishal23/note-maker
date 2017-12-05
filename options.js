@@ -18,43 +18,44 @@ app.controller('DisplayList',function($scope,$timeout) {
 
         }
         else {
-            $scope.lists.push({title: $scope.addTitle,done:false});
+            var d = new Date();
+            $scope.lists.push({title: $scope.addTitle,done:false, date:d});
             $scope.addTitle='';
         }
         add=document.getElementsByClassName('addbutton');
-    	add[0].innerHTML='Add';
+        add[0].innerHTML='Add';
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
         localStorage.setItem('lists',JSON.stringify($scope.lists));
 
     };
-
     $scope.edit=function () {
-    	add=document.getElementsByClassName('addbutton');
-    	add[0].innerHTML='Update';
-    	this.list.done=true;
-		a=$scope.remove();
-		$scope.addTitle=a.title;
-		document.getElementById('input').focus();
+        add=document.getElementsByClassName('addbutton');
+        add[0].innerHTML='Update';
+        this.list.done=true;
+        $scope.addTitle=$scope.remove().title;
+        document.getElementById('input').focus();
 
 
         
         localStorage.setItem('lists',JSON.stringify($scope.lists));
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
    
-    }
-
-
+    };
     $scope.remove=function () {
-
+        var removedItem;
         var oldList=$scope.lists;
         $scope.lists=[];
         angular.forEach(oldList,function (todo){
             if (!todo.done) {
                 $scope.lists.push(todo);
             }
+            else{
+                removedItem=todo;
+            }
         });
 
         localStorage.setItem('lists',JSON.stringify($scope.lists));
         //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
+        return removedItem;
     };
 });
