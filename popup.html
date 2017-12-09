@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="notemaker">
 <head>
-	<title>NoteMaker</title>
+    <title>NoteMaker</title>
 
     <link rel="stylesheet" href="cdn/bootstrap.min.css">
     <script src="cdn/angular.min.js"></script>
@@ -12,23 +12,30 @@
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h1 class="head">NoteMaker</h1>
+<h1 class="head">NoteMaker Options</h1>
 
 <div class="container" ng-controller="DisplayList">
     <br>
     <form class="container1">
-        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
-        <p></p>
+        <input type="text" placeholder="Enter Title" ng-model="addTitle" class="text" />
+		<input type="text" placeholder="Enter Notes" ng-model="addNotes" class="text"/>
+		<br>
         <button type="button" class="addbutton" ng-click="add()">Add</button>
         <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
     </form>
     <br>
     <br>
-    <ul ng-repeat="list in lists | orderBy: '-date' track by $index">
-        <input type="checkbox" ng-model="list.done" class="checkbox">
-        <span class="done-{{list.done}}">
-        {{list.title}}    
-        <button type="button" class="editbutton" ng-click="edit()">Edit</button>
+    <ul ng-repeat="list in lists | orderBy:'-date' track by $index">
+    	<input type="checkbox" ng-model="list.done" class="checkbox">
+        <span class="done-{{list.done}} title">
+        {{list.title}}</span>
+        <ul class="notebuttons">
+        	<li><button type="button" class="editbutton" ng-click="edit()">Edit</button></li>
+    		<li><button type="button" class="notebutton">Show</button></li>
+    	</ul>
+        <div class="note">
+        	<p class="text">{{list.notes}}</p>
+        </div>
     </ul>
     <br>
 </div>
