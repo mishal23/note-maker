@@ -8,7 +8,7 @@
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
-    <script src="popup.js"></script>
+    <script src="options.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
@@ -17,18 +17,25 @@
 <div class="container" ng-controller="DisplayList">
     <br>
     <form class="container1">
-        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
-        <p></p>
+        <input type="text" placeholder="Enter Title" ng-model="addTitle" class="text" />
+		<input type="text" placeholder="Enter Notes" ng-model="addNotes" class="text"/>
+		<br>
         <button type="button" class="addbutton" ng-click="add()">Add</button>
         <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
     </form>
     <br>
     <br>
     <ul ng-repeat="list in lists | orderBy:'-date' track by $index">
-        <input type="checkbox" ng-model="list.done" class="checkbox">
-        <span class="done-{{list.done}}">
-        {{list.title}} 
-        <button type="button" class="editbutton" ng-click="edit()">Edit</button>
+    	<input type="checkbox" ng-model="list.done" class="checkbox">
+        <span class="done-{{list.done}} title">
+        {{list.title}}</span>
+        <ul class="notebuttons">
+        	<li><button type="button" class="editbutton" ng-click="edit()">Edit</button></li>
+    		<li><button type="button" class="notebutton">Show</button></li>
+    	</ul>
+        <div class="note">
+        	<p class="text">{{list.notes}}</p>
+        </div>
     </ul>
     <br>
 </div>
