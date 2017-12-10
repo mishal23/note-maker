@@ -31,7 +31,8 @@ body{
 	list-style-type: none;
 	list-style-position: relative;
 	position: relative;
-	float: right;
+    right:0;
+    float:right;
 }
 
 .notebuttons li{
@@ -47,6 +48,7 @@ body{
     font-weight: bold;
     padding: 0px 7px;
     font-size: 15px;
+    float: right;
 }
 
 .notebutton{

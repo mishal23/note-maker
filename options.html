@@ -4,7 +4,6 @@
     <title>NoteMaker</title>
 
     <link rel="stylesheet" href="cdn/bootstrap.min.css">
-    <script src="cdn/angular.min.js"></script>
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
@@ -14,29 +13,18 @@
 <body>
 <h1 class="head">NoteMaker Options</h1>
 
-<div class="container" ng-controller="DisplayList">
+<div class="container" >
     <br>
     <form class="container1">
-        <input type="text" placeholder="Enter Title" ng-model="addTitle" class="text" />
-		<input type="text" placeholder="Enter Notes" ng-model="addNotes" class="text"/>
+        <input type="text" placeholder="Enter Title" class="text" />
+		<input type="text" placeholder="Enter Notes" class="text"/>
 		<br>
-        <button type="button" class="addbutton" ng-click="add()">Add</button>
-        <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
+        <input type="button" class="addbutton" value="Add"/>
+        <input type="button" class="removebutton" value="Remove ticked"/>
     </form>
     <br>
     <br>
-    <ul ng-repeat="list in lists | orderBy:'-date' track by $index">
-    	<input type="checkbox" ng-model="list.done" class="checkbox">
-        <span class="done-{{list.done}} title">
-        {{list.title}}</span>
-        <ul class="notebuttons">
-        	<li><button type="button" class="editbutton" ng-click="edit()">Edit</button></li>
-    		<li><button type="button" class="notebutton">Show</button></li>
-    	</ul>
-        <div class="note">
-        	<p class="text">{{list.notes}}</p>
-        </div>
-    </ul>
+    <ul class="lists" style="list-style-type : none"></ul>
     <br>
 </div>
 
