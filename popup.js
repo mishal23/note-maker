@@ -5,9 +5,9 @@ $(document).ready(function(){
     if(localStorage.lists!=undefined)
         lists=JSON.parse(localStorage.lists);
     
-    lists.sort(function(a,b){
+    /*lists.sort(function(a,b){
         return b.date>a.date;
-    });
+    });*/
     ol=$('.lists');
     li=[];
     checkbox='<input type="checkbox"  class="checkbox">';

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html ng-app="notemaker">
+<html>
 <head>
     <title>NoteMaker</title>
-
-    <link rel="stylesheet" href="cdn/bootstrap.min.css">
+   
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="cdn/bootstrap.min.css">
+    <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
     <script src="options.js"></script>
+
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <h1 class="head">NoteMaker Options</h1>
-
-<div class="container" >
+    <div id="page-content"></div>
+    <ul id="pagination-demo" class="pagination-sm"></ul>
+    
+    <div class="container">
     <br>
     <form class="container1">
         <input type="text" placeholder="Enter Title" class="text" />
@@ -29,4 +33,14 @@
 </div>
 
 </body>
+<script>
+        $('#pagination-demo').twbsPagination({
+            totalPages: 35,
+            visiblePages: 7,
+            onPageClick: function (event, page) {
+                $('#page-content').text('Page ' + page);
+            }
+        });
+</script>
+
 </html>

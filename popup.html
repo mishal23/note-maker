@@ -7,12 +7,14 @@
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
+    <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
     <script src="popup.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
 <h1 class="head">NoteMaker</h1>
-
+<div id="page-content"></div>
+    <ul id="pagination-demo" class="pagination-sm"></ul>
 <div class="container" >
     <br>
     <form class="container1">
@@ -27,6 +29,14 @@
     <ul class="lists" style="list-style-type : none"></ul>
     <br>
 </div>
-
 </body>
+<script>
+        $('#pagination-demo').twbsPagination({
+            totalPages: 35,
+            visiblePages: 7,
+            onPageClick: function (event, page) {
+                $('#page-content').text('Page ' + page);
+            }
+        });
+</script>
 </html>
