@@ -14,11 +14,9 @@
 </head>
 <body>
 <h1 class="head">NoteMaker Options</h1>
-    <div id="page-content"></div>
     <ul id="pagination-demo" class="pagination-sm"></ul>
     
-    <div class="container">
-    <br>
+    
     <form class="container1">
         <input type="text" placeholder="Enter Title" class="text" />
 		<input type="text" placeholder="Enter Notes" class="text"/>
@@ -27,20 +25,15 @@
         <input type="button" class="removebutton" value="Remove ticked"/>
     </form>
     <br>
+    <h3 id ="page-content" class="container"></h3>
     <br>
-    <ul class="lists" style="list-style-type : none"></ul>
     <br>
-</div>
+    <ul class="lists" style="list-style-type: none" ></ul>
+    <br>    
 
 </body>
 <script>
-        $('#pagination-demo').twbsPagination({
-            totalPages: 35,
-            visiblePages: 7,
-            onPageClick: function (event, page) {
-                $('#page-content').text('Page ' + page);
-            }
-        });
+        
 </script>
 
 </html>
