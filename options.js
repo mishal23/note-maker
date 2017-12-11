@@ -1,12 +1,11 @@
 $(document).ready(function(){
-    $($('.text')[0]).focus();
+    /*$($('.text')[0]).focus();*/
     $('#pagination-demo').twbsPagination({
             totalPages: 35,
             visiblePages: 4,
             onPageClick: function (event, page) {
                 pagelimit=2;
                 $('#page-content').text('Page '+page);
-            
 
                 lists=JSON.parse(localStorage.lists);
                 lists.sort(function(a,b){
@@ -41,7 +40,8 @@ $(document).ready(function(){
                     }
                     this.value="Add",
                     localStorage.setItem('lists',JSON.stringify(lists));
-                    location.reload();
+                    //location.reload();
+                    refresh();
                 });
 
                 var remove=function(){
@@ -54,9 +54,38 @@ $(document).ready(function(){
                     }
                 }
 
+                var refresh = function () {
+                    lists=JSON.parse(localStorage.lists);
+                    lists.sort(function(a,b){
+                        return b.date>a.date;
+                    });
+                    pagelist=lists.slice((page-1)*pagelimit,page*pagelimit);
+                    ol=$('.lists');
+                    ol.empty();
+                    li=[];
+                    checkbox='<input type="checkbox"  class="checkbox">';
+                    buttons='<ul class="notebuttons"><li><button type="button" class="editbutton">Edit</button></li><li><button type="button" class="notebutton">Show</button></li></ul>';
+                    for(i in pagelist){
+                        li[i]='<li class="listItems">'+checkbox+'<span class="done check title">'+ pagelist[i].title +'</span>'+buttons+'<div class="note"><p class="text">'+ pagelist[i].notes +'</p></div>'+'</li> <br>';
+                    }
+                    ol.append(li);
+
+                    $('.note').css({"display":"block"})
+                    $('.notebutton').text("Hide");
+                    $('.notebutton').click(function(){
+                        note=$(this).parent().parent().next(".note");
+                        note.toggle();
+                        if (note.css("display")==="none")
+                            $(this).text('Show');
+                        else
+                            $(this).text('Hide');
+                    });
+                }
+
                 $('.removebutton').click(function(){
                     remove();
-                    location.reload();
+                   // location.reload();
+                   refresh();
                 });
 
                 $('.editbutton').click(function(){
