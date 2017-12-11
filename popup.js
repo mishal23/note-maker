@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    //$($('.text')[0]).focus();
+    $($('.text')[0]).focus();
     
     lists=[];
     if(localStorage.lists!=undefined)
