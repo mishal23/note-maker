@@ -5,7 +5,9 @@ $(document).ready(function(){
             onPageClick: function (event, page) {
                 var refresh = function (page) {                 //A function which refreshes the current page
                     $($('.text')[0]).focus();
-                    lists=JSON.parse(localStorage.lists);
+                    lists=[];
+				    if(localStorage.lists!=undefined)
+                	    lists=JSON.parse(localStorage.lists);
                     lists.sort(function(a,b){
                         return b.date>a.date;
                     });
