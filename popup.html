@@ -2,41 +2,40 @@
 <html>
 <head>
     <title>NoteMaker</title>
-
-    <link rel="stylesheet" href="cdn/bootstrap.min.css">
+   
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="cdn/bootstrap.min.css">
     <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
     <script src="popup.js"></script>
+
     <link rel="stylesheet" type="text/css" href="style-popup.css">
 </head>
 <body>
-<h1 class="head">NoteMaker</h1>
-<div id="page-content"></div>
-    <ul id="pagination-demo" class="pagination-sm"></ul>
-<div class="container" >
-    <br>
+<h1 class="head">NoteMaker Popup</h1>
+    
+    
+    
     <form class="container1">
         <input type="text" placeholder="Enter Title" class="text" />
-		<input type="text" placeholder="Enter Notes" class="text"/>
-		<br>
+        <input type="text" placeholder="Enter Notes" class="text"/>
+        <br><br>
         <input type="button" class="addbutton" value="Add"/>
         <input type="button" class="removebutton" value="Remove ticked"/>
     </form>
     <br>
+
+    <h5 id ="page-content" class="container page-no"></h5>
     <br>
-    <ul class="lists" style="list-style-type : none"></ul>
     <br>
-</div>
+    <ul class="lists" style="list-style-type: none" ></ul>
+    <ul id="pagination-demo" class="pagination-sm"></ul>
+    <br>    
+
 </body>
 <script>
-        $('#pagination-demo').twbsPagination({
-            totalPages: 35,
-            visiblePages: 7,
-            onPageClick: function (event, page) {
-                $('#page-content').text('Page ' + page);
-            }
-        });
+        
 </script>
+
 </html>
