@@ -1,36 +1,41 @@
 <!DOCTYPE html>
-<html ng-app="notemaker">
+<html>
 <head>
-	<title>NoteMaker</title>
-
-    <link rel="stylesheet" href="cdn/bootstrap.min.css">
-    <script src="cdn/angular.min.js"></script>
+    <title>NoteMaker</title>
+   
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="cdn/bootstrap.min.css">
+    <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
     <script src="popup.js"></script>
-    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <link rel="stylesheet" type="text/css" href="style-popup.css">
 </head>
 <body>
-<h1 class="head">NoteMaker</h1>
-
-<div class="container" ng-controller="DisplayList">
-    <br>
+<h1 class="head">NoteMaker Popup</h1>
+    
+    
+    
     <form class="container1">
-        <input type="text" placeholder="Enter title" ng-model="addTitle" class="text"/>
-        <p></p>
-        <button type="button" class="addbutton" ng-click="add()">Add</button>
-        <button type="button" class="removebutton" ng-click="remove()">Remove ticked</button>
+        <input type="text" placeholder="Enter Title" class="text" />
+        <input type="text" placeholder="Enter Notes" class="text"/>
+        <br><br>
+        <input type="button" class="addbutton" value="Add"/>
+        <input type="button" class="removebutton" value="Remove ticked"/>
     </form>
     <br>
+
+    <h5 id ="page-content" class="container page-no"></h5>
     <br>
-    <ul ng-repeat="list in lists | orderBy: '-date' track by $index">
-        <input type="checkbox" ng-model="list.done" class="checkbox">
-        <span class="done-{{list.done}}">
-        {{list.title}}    
-    </ul>
     <br>
-</div>
+    <ul class="lists" style="list-style-type: none" ></ul>
+    <ul id="pagination-demo" class="pagination-sm"></ul>
+    <br>    
 
 </body>
+<script>
+        
+</script>
+
 </html>

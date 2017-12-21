@@ -27,6 +27,18 @@ body{
     font-size: 15px;
 }
 
+.notebuttons{
+	list-style-type: none;
+	list-style-position: relative;
+	position: relative;
+    right:0;
+    float:right;
+}
+
+.notebuttons li{
+		margin-top: 0px;
+	}
+
 .editbutton{
     position: relative;
     border-radius: 5px;
@@ -38,9 +50,24 @@ body{
     font-size: 15px;
     float: right;
 }
+
+.notebutton{
+    position: relative;
+    border-radius: 5px;
+    background-color: #00ffff;
+    border-color: #00ffff;
+    color: black;
+    font-weight: bold;
+    padding: 0px 7px;
+    font-size: 10px;
+    float: right; 
+}
+
+
 .text{
     padding: 7px 7px 7px 7px;
 }
+
 .removebutton{
     background-color: gold;
     border-color: gold;
@@ -58,3 +85,15 @@ body{
     padding-top: 8px;
     padding-bottom: 8px;
 }
+
+.note{
+	background-color: #CFF66B;
+	background-position: relative;
+	margin: 0 30px;
+	border:2px solid #97C64B;
+	border-radius: 10px;
+	display: none;
+	word-wrap: break-word;
+}
+
+

@@ -1,42 +1,96 @@
-var app=angular.module('notemaker',[]);
+$(document).ready(function(){
+    $('#pagination-demo').twbsPagination({
+            totalPages: 35,
+            visiblePages: 4,
+            onPageClick: function (event, page) {
+                var load = function (page) {                 //A function which loades the current page
+                    $($('.text')[0]).focus();
+                    lists=JSON.parse(localStorage.lists);
+                    lists.sort(function(a,b){
+                        return b.date>a.date;
+                    });
+                    pagelist=lists.slice((page-1)*pagelimit,page*pagelimit);
+                    ol=$('.lists');
+                    ol.empty();
+                    li=[];
+                    checkbox='<input type="checkbox"  class="checkbox">';
+                    buttons='<ul class="notebuttons"><li><button type="button" class="editbutton">Edit</button></li><li><button type="button" class="notebutton">Show</button></li></ul>';
+                    for(i in pagelist){
+                        li[i]='<li class="listItems">'+checkbox+'<span class="done check title">'+ pagelist[i].title +'</span>'+buttons+'<div class="note"><p class="text">'+ pagelist[i].notes +'</p></div>'+'</li> <br>';
+                    }
+                    ol.append(li);
 
-app.controller('DisplayList',function($scope,$timeout) {
+                    $('.checkbox').click(function(){
+                        for (i in li)
+                            if ($($('.checkbox')[i]).prop("checked"))
+                                lists[(page-1)*pagelimit+parseInt(i)].done=true;
+                            else
+                                lists[(page-1)*pagelimit+parseInt(i)].done=false;
+                    });
 
-    $scope.saved=localStorage.getItem('lists');
-    $scope.lists=(localStorage.getItem('lists')!==null)?JSON.parse($scope.saved):[{title:'First',done:'false'}];
+                    $('.note').css({"display":"block"})
+                    $('.notebutton').text("Hide");
+                    $('.notebutton').click(function(){
+                        note=$(this).parent().parent().next(".note");
+                        note.toggle();
+                        if (note.css("display")==="none")
+                            $(this).text('Show');
+                        else
+                            $(this).text('Hide');
+                    });
 
-    /*
-    chrome.storage.sync.get(['title','done'], function (saved) {
-        $scope.lists = [{title:saved.title, done:saved.done}];
-    });
-    */
-    localStorage.setItem('lists',JSON.stringify($scope.lists));
-    //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
-    $scope.add=function () {
-        if($scope.addTitle===undefined)
-        {
+                    $('#page-content').text('Page '+page);
 
-        }
-        else {
-            var d = new Date();
-            $scope.lists.push({title: $scope.addTitle,done:false, date:d});
-            $scope.addTitle='';
-        }
-        //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
-        localStorage.setItem('lists',JSON.stringify($scope.lists));
 
-    };
-    $scope.remove=function () {
+                    $('.addbutton').click(function(){               //function which adds a new entry
+                        remove();
+                        text=$('.text');
+                        if ($(text[0]).val()!=''){
+                            var d=new Date();
+                            lists.push({title: $(text[0]).val(), notes: $(text[1]).val(),done:false, date: d});
+                            $(text[0]).val('');
+                            $(text[1]).val('');
+                        }
+                        this.value="Add",
+                        localStorage.setItem('lists',JSON.stringify(lists));
+                        location.reload();
+                    });
 
-        var oldList=$scope.lists;
-        $scope.lists=[];
-        angular.forEach(oldList,function (todo){
-            if (!todo.done) {
-                $scope.lists.push(todo);
-            }
-        });
+                    var remove=function(){                          //function which removes the checked items
+                        oldlist=lists;
+                        lists=[];
+                        for (i in oldlist){
+                            if(!oldlist[i].done)
+                                lists.push(oldlist[i]);
+                        localStorage.setItem('lists',JSON.stringify(lists));
+                        }
+                    }
 
-        localStorage.setItem('lists',JSON.stringify($scope.lists));
-        //chrome.storage.sync.set({'title': JSON.stringify($scope.lists.title), 'done': JSON.stringify($scope.lists.done)});
-    };
+                    
+
+                    $('.removebutton').click(function(){            //function for removing
+                        remove();
+                        load(page);
+                    });
+
+                    $('.editbutton').click(function(){              //function for editing a specific entry
+                        edititem=$(this).parents('.listItems')[0];
+                        $($(edititem).children('.checkbox')[0]).prop('checked',true);
+                        indexp=$(edititem).index()/2;
+                        index=(page-1)*pagelimit + indexp;
+                        text=$('.text');
+                        lists[index].done=true;
+                        $(text[0]).val(lists[index].title);
+                        $(text[1]).val(lists[index].notes);
+                        $(text[1]).focus();
+                        $('.addbutton').attr('value','Update');
+                    });
+                }
+
+                pagelimit=2;
+
+                load(page);
+
+           }
+});
 });
