@@ -7,7 +7,7 @@ var router = express.Router();
 router.post('/', function (req,res, next) {
     var response = {};
     var noteContent = req.body;
-    //noteContent.createdBy = req.cookies.user_id;
+    noteContent.createdBy = req.cookies.user_id;
     var newNote = new Note(noteContent);
     newNote.save(function (err,user) {
         if(err)  {

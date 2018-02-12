@@ -48,7 +48,10 @@ router.post('/:username', function (req, res) {
         if(user){
           if(user.password == password){
             response.statusText = "Success";
-            res.send(response);
+            // res.cookie(name, value)  = sets cookie "name" to "value"
+            res.cookie('user_id',user._id,{
+              expire: new Date() + 7*86400    //for a day
+            }).send(response);
           }
           else{
             response.statusText = "Invalid Password";

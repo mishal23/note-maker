@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +23,16 @@ mongooseClient.connectDB(function () {
 },function (err) {
     console.log("Error connecting");
     console.log(err);
+});
+
+// Allow cross-origin resource sharing for GET,POST,DELETE,PUT request
+app.use(cors());
+app.use(function(req,res,next){
+    res.setHeader( "Access-Control-Allow-Origin", req.headers.origin || '*');
+    res.setHeader( "Access-Control-Allow-Credentials", 'true');
+    res.setHeader( "Access-Control-Allow-Methods", "GET,POST,DELETE,PUT");
+    res.setHeader('Access-Control-Allow-Headers','*');
+    next();
 });
 
 // uncomment after placing your favicon in /public
