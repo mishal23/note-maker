@@ -23,12 +23,26 @@ router.post('/', function (req,res, next) {
 // to get all the notes
 // in frontend we will check for the particular user and display only that notes
 router.get('/', function (req,res,next) {
-
+    Note.find(function(err,notes){
+        if(err)
+            res.send(err);
+        else
+            res.send(notes);
+    })
 });
 
 // to edit a particular note
 router.put('/:id', function (req,res,next) {
-    
+    objectId=req.params.id;
+    changes=req.body;
+    response={};
+    Note.findByIdAndUpdate(objectId,changes,{new: true},function(err){
+        if(err)
+            response.error=err;
+        else
+            response.status="Object modified";
+        res.send(response);
+    });
 });
 
 // to delete a particular note
