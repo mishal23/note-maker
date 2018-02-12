@@ -47,7 +47,15 @@ router.put('/:id', function (req,res,next) {
 
 // to delete a particular note
 router.delete('/:id', function (req,res,next) {
-    
+       Note.remove({
+            _id: req.params.id
+        }, function(err, Note) {
+            if (err)
+                res.send(err);
+            else
+                res.json({ message: 'Successfully deleted' });
+        });
+
 });
 
 module.exports = router;

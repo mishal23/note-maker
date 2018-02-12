@@ -5,7 +5,14 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+
+  User.find(function(err, users) {
+     if(err)
+         res.send(err);
+     else
+         res.json(users);
+
+  });
 });
 
 // To create/register a user
