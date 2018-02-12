@@ -34,7 +34,33 @@ router.post('/', function (req,res, next) {
 // For user to login
 // Check if user already present with this username, if present compare the password, if same authenticate user
 router.post('/:username', function (req, res) {
-    
+    var username = req.params.username;
+    var password = req.body.password;
+    var response = {};
+
+    response.statusText = "";
+    User.findOne({username:username},function(err,user){
+      if(err){
+        response.statusText = err;
+        res.send(response);
+      }
+      else{
+        if(user){
+          if(user.password == password){
+            response.statusText = "Success";
+            res.send(response);
+          }
+          else{
+            response.statusText = "Invalid Password";
+            res.send(response);
+          }
+        }
+        else{
+          response.statusText = "Invalid username";
+          res.send(response);
+        }
+      }
+    });
 });
 
 module.exports = router;
