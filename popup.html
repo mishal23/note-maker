@@ -15,8 +15,23 @@
 <body>
 <h1 class="head">NoteMaker Popup</h1>
     
-    
-    
+<div class="container signup">
+    <input id="username" type="text" placeholder="Enter Username" ><br><br>
+    <input id="email" type=text" placeholder="Enter Email-id" ><br><br>
+    <input id="password" type="password" placeholder="Enter password" ><br>
+    <input id="confirm-password" type="password" placeholder="Re-enter password" ><br><br>
+    <button id="signup-button">Create Account</button>
+
+</div>
+
+<div class="container login">
+    <input type="text" name="username" class="form-control login_username" placeholder="Enter username"><br>
+    <input type="password" name="password" class="form-control login_password" placeholder="Enter Password"><br>
+    <button class="btn loginbtn" style="margin: 0px 50px 10px;">Login</button>
+    <p class="valid">Enter valid username/password</p>
+</div>
+
+<div class="main_part">
     <form class="container1">
         <input type="text" placeholder="Enter Title" class="text" />
         <input type="text" placeholder="Enter Notes" class="text"/>
@@ -32,19 +47,7 @@
     <ul class="lists" style="list-style-type: none" ></ul>
     <ul id="pagination-demo" class="pagination-sm"></ul>
     <br>    
-
+</div>
 </body>
-<script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyA29THHwkNbJG7W5MvIsb78NFYhVZeU7ik",
-    authDomain: "notemaker-3182e.firebaseapp.com",
-    databaseURL: "https://notemaker-3182e.firebaseio.com",
-    projectId: "notemaker-3182e",
-    storageBucket: "notemaker-3182e.appspot.com",
-    messagingSenderId: "489385540010"
-  };
-  firebase.initializeApp(config);
-</script>
+
 </html>

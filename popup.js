@@ -1,4 +1,78 @@
 $(document).ready(function(){
+    $('.main_part').hide();
+    $('.login').show();
+    $('.valid').hide();
+    $('.signup').hide();
+
+    $('.loginbtn').click(function(){
+        if($('.login_password').val()=='' || $('.login_username').val()=='' )
+        {
+            $('.valid').show();
+        }
+        else
+        {
+            var username = $('.login_username').val();
+            var password = $('.login_password').val();
+            $.post("http://localhost:3000/users/" + username,{password:password}, function(data){
+                console.log(data);
+                if(data.statusText === "Success")
+                {
+                    $('.main_part').show();
+                    $('.login').hide();
+                    $('.valid').hide();
+                }
+            });
+        }
+    })
+
+    $('#signup-button').click(function(){
+        var username=$('#username').val();
+        if(username.length===0) {
+            alert("Invalid username");
+            re_signup();
+            return;
+        }
+        var email=$('#email').val();
+        if(email.length===0) {
+            alert("Invalid Email-ID");
+            re_signup();
+            return;
+        }
+        var password = $('#password').val();
+        if(password.length<8) {
+            alert("Password should be atleast 8 characters!");
+            re_signup();
+            return;
+        }
+        var confirm_password = $('#confirm-password').val();
+        if (password!=confirm_password) {
+            alert("Passwords dont match!");
+            re_signup();
+            return;
+        }
+
+        var response={
+            'username': username,
+            'password': password,
+            'email': email,
+        };
+
+        $.post("http://localhost:3000/users",response,function(data){
+            if(data.status==='User created'){
+                $('.signup').hide();
+                $('.main_part').show();
+            }
+        })
+
+    });
+
+    var re_signup = function(){
+        $('.signup').children('input').each(function (index){
+            $(this).val('');
+        });
+    };
+
+
     $('#pagination-demo').twbsPagination({
             totalPages: 35,
             visiblePages: 4,
