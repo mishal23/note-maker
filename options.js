@@ -1,37 +1,56 @@
 $(document).ready(function(){
+
     $('#pagination-demo').twbsPagination({
-            totalPages: 35,
-            visiblePages: 4,
-            onPageClick: function (event, page) {
-                var load = function (page) {                 //A function which loades the current page
-                    $($('.text')[0]).focus();
-                    lists=JSON.parse(localStorage.lists);
+
+        totalPages: 35,
+        visiblePages: 4,
+        onPageClick: function (event, page) {
+
+            var load = function (page) {  //A function which loads the current page
+
+                $($('.text')[0]).focus();
+
+                $.get("http://localhost:3000/notes", function(lists){
+
                     lists.sort(function(a,b){
-                        return b.date>a.date;
+                        return b.date > a.date;
                     });
-                    pagelist=lists.slice((page-1)*pagelimit,page*pagelimit);
-                    ol=$('.lists');
+
+                    var pagelist = lists.slice((page-1)*pagelimit, page*pagelimit);
+                    var ol = $('.lists');
                     ol.empty();
-                    li=[];
-                    checkbox='<input type="checkbox"  class="checkbox">';
-                    buttons='<ul class="notebuttons"><li><button type="button" class="editbutton">Edit</button></li><li><button type="button" class="notebutton">Show</button></li></ul>';
+                    var li = [];
+                    checkbox = '<input type="checkbox"  class="checkbox">';
+                    buttons =
+                        '<ul class="notebuttons">' +
+                        '<li><button type="button" class="editbutton">Edit</button></li>' +
+                        '<li><button type="button" class="notebutton">Show</button></li>' +
+                        '</ul>';
                     for(i in pagelist){
-                        li[i]='<li class="listItems">'+checkbox+'<span class="done check title">'+ pagelist[i].title +'</span>'+buttons+'<div class="note"><p class="text">'+ pagelist[i].notes +'</p></div>'+'</li> <br>';
+                        li[i] =
+                            '<li class="listItems">'+checkbox+'' +
+                            '<span class="done check title">'+ pagelist[i].title +'</span>'
+                            +buttons+
+                            '<div class="note">' +
+                            '<p class="text">'+ pagelist[i].content +'</p>' +
+                            '</div>'+
+                            '</li> <br>';
                     }
                     ol.append(li);
 
                     $('.checkbox').click(function(){
                         for (i in li)
                             if ($($('.checkbox')[i]).prop("checked"))
-                                lists[(page-1)*pagelimit+parseInt(i)].done=true;
+                                lists[(page-1)*pagelimit+parseInt(i)].done = true;
                             else
-                                lists[(page-1)*pagelimit+parseInt(i)].done=false;
+                                lists[(page-1)*pagelimit+parseInt(i)].done = false;
                     });
 
-                    $('.note').css({"display":"block"})
-                    $('.notebutton').text("Hide");
+                    $('.container').css({"width":"250px"});
+                    $('.note').css({"width":"80%"});
+
                     $('.notebutton').click(function(){
-                        note=$(this).parent().parent().next(".note");
+                        var note = $(this).parent().parent().next(".note");
                         note.toggle();
                         if (note.css("display")==="none")
                             $(this).text('Show');
@@ -39,58 +58,90 @@ $(document).ready(function(){
                             $(this).text('Hide');
                     });
 
-                    $('#page-content').text('Page '+page);
-
+                    $('#page-content').text('Page ' + page);
 
                     $('.addbutton').click(function(){               //function which adds a new entry
                         remove();
+
                         text=$('.text');
-                        if ($(text[0]).val()!=''){
-                            var d=new Date();
-                            lists.push({title: $(text[0]).val(), notes: $(text[1]).val(),done:false, date: d});
+                        if ($(text[0]).val()!==''){
+                            var d = new Date();
+                            var newNote = {
+                                title: $(text[0]).val(),
+                                content: $(text[1]).val(),
+                                createdBy : "user",
+                                date: d,
+                                done:false
+                            };
+                            $.post("http://localhost:3000/notes", newNote, function() {
+                                location.reload();
+                            });
+
                             $(text[0]).val('');
                             $(text[1]).val('');
                         }
-                        this.value="Add",
-                        localStorage.setItem('lists',JSON.stringify(lists));
-                        location.reload();
+                        this.value = "Add";
                     });
 
-                    var remove=function(){                          //function which removes the checked items
-                        oldlist=lists;
-                        lists=[];
-                        for (i in oldlist){
-                            if(!oldlist[i].done)
-                                lists.push(oldlist[i]);
-                        localStorage.setItem('lists',JSON.stringify(lists));
+                    var remove = function(){        //function which removes the checked items
+                        for(i in lists) {
+                            if(lists[i].done) {
+                                $.ajax ({
+                                    type: 'DELETE',
+                                    url: "http://localhost:3000/notes/"+lists[i]._id
+                                });
+                            }
                         }
-                    }
 
-                    
+                    };
 
                     $('.removebutton').click(function(){            //function for removing
                         remove();
-                        load(page);
+                        refresh(page);
                     });
 
                     $('.editbutton').click(function(){              //function for editing a specific entry
-                        edititem=$(this).parents('.listItems')[0];
+                        var edititem = $(this).parents('.listItems')[0];
                         $($(edititem).children('.checkbox')[0]).prop('checked',true);
-                        indexp=$(edititem).index()/2;
-                        index=(page-1)*pagelimit + indexp;
-                        text=$('.text');
-                        lists[index].done=true;
+                        var indexp = $(edititem).index()/2,
+                            index = (page-1)*pagelimit + indexp,
+                            text = $('.text');
+                        lists[index].done = true;
                         $(text[0]).val(lists[index].title);
-                        $(text[1]).val(lists[index].notes);
+                        $(text[1]).val(lists[index].content);
                         $(text[1]).focus();
-                        $('.addbutton').attr('value','Update');
+                        $(".addbutton").attr('value','Update');
+                        $('.addbutton').addClass('updating');
+
                     });
-                }
 
-                pagelimit=2;
+                    $('.addbutton .updating').click(function() {
+                        var text = $('.text');
+                        for(i in lists) {
+                            if(lists[i].done) {
+                                $.ajax({
+                                    type: 'PUT',
+                                    url: 'http://localhost:3000/notes/'+lists[i]._id,
+                                    dataType: 'json',
+                                    data: {
+                                        title: $(text[0]).val(),
+                                        content: $(text[1]).val(),
+                                        createdBy : lists[i].createdBy,
+                                        date: lists[i].data,
+                                        done:false
+                                    }
+                                });
+                            }
+                        }
+                        $('.addbutton .updating').removeClass('updating');
+                    });
 
-                load(page);
+                });
+            };
 
-           }
-});
+            var pagelimit = 2;
+
+            load(page);
+        }
+    });
 });
