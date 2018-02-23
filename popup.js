@@ -1,9 +1,30 @@
 $(document).ready(function(){
-
-    $('.main_part').hide();
     $('.login').show();
-    $('.valid').hide();
-    $('.signup').hide();
+    $('.main_part').hide();          
+    chrome.storage.sync.get("loggedIn",function(data){
+        if(data.loggedIn===undefined)
+        {
+            $('.signup').hide();
+            $('.valid').hide();
+            $('.login').show();
+            $('.main_part').hide();
+        }
+        else
+        {
+            $('.signup').hide();
+            $('.valid').hide();
+            $('.login').hide();
+            $('.main_part').show();           
+        }
+        
+    });
+
+    $('.link_signup').click(function(){
+        $('.login').hide();
+        $('.main_part').hide();
+        $('.valid').hide();
+        $('.signup').show();
+    });
 
     $('.loginbtn').click(function(){
         if($('.login_password').val()=='' || $('.login_username').val()=='' )
@@ -18,6 +39,9 @@ $(document).ready(function(){
                 console.log(data);
                 if(data.statusText === "Success")
                 {
+                    chrome.storage.sync.set({"loggedIn": data.user_id}, function(){
+                        console.log("Set hua?");
+                    });
                     $('.main_part').show();
                     $('.login').hide();
                     $('.valid').hide();
@@ -67,13 +91,21 @@ $(document).ready(function(){
 
     });
 
+    
+    
+
     var re_signup = function(){
         $('.signup').children('input').each(function (index){
             $(this).val('');
         });
     };
 
-
+    $('.logout').click(function(){
+        chrome.storage.sync.remove("loggedIn",function(){
+            location.reload();
+        });
+        
+    });
 
     $('#pagination-demo').twbsPagination({
 

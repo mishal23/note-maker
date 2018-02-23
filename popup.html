@@ -16,18 +16,19 @@
 <h1 class="head">NoteMaker Popup</h1>
     
 <div class="container signup">
-    <input id="username" type="text" placeholder="Enter Username" ><br><br>
-    <input id="email" type=text" placeholder="Enter Email-id" ><br><br>
-    <input id="password" type="password" placeholder="Enter password" ><br>
-    <input id="confirm-password" type="password" placeholder="Re-enter password" ><br><br>
-    <button id="signup-button">Create Account</button>
+    <input id="username" type="text" class="form-control" placeholder="Enter Username" ><br>
+    <input id="email" type=text" class="form-control" placeholder="Enter Email-id" ><br>
+    <input id="password" type="password" class="form-control" placeholder="Enter password" ><br>
+    <input id="confirm-password" type="password" class="form-control" placeholder="Re-enter password" ><br>
+    <button id="signup-button" class="btn">Create Account</button>
 
 </div>
 
 <div class="container login">
     <input type="text" name="username" class="form-control login_username" placeholder="Enter username"><br>
     <input type="password" name="password" class="form-control login_password" placeholder="Enter Password"><br>
-    <button class="btn loginbtn" style="margin: 0px 50px 10px;">Login</button>
+    <button class="btn loginbtn" style="margin: 0px 50px 10px; display: inline-block;">Login</button>
+    <button class="btn link_signup d-flex" style="margin: 0px 50px 10px; display: inline-block;">Signup</button>
     <p class="valid">Enter valid username/password</p>
 </div>
 
@@ -46,7 +47,8 @@
     <br>
     <ul class="lists" style="list-style-type: none" ></ul>
     <ul id="pagination-demo" class="pagination-sm"></ul>
-    <br>    
+    <br>
+    <button class="btn logout">Logout</button>    
 </div>
 </body>
 
