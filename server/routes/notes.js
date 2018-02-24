@@ -7,7 +7,6 @@ var router = express.Router();
 router.post('/', function (req,res, next) {
     var response = {};
     var noteContent = req.body;
-    noteContent.createdBy = req.cookies.user_id;
     var newNote = new Note(noteContent);
     newNote.save(function (err,user) {
         if(err)  {
@@ -22,12 +21,15 @@ router.post('/', function (req,res, next) {
 
 // to get all the notes
 // in frontend we will check for the particular user and display only that notes
-router.get('/', function (req,res,next) {
-    Note.find(function(err,notes){
+router.get('/:id', function (req,res,next) {
+    var id = req.params.id;
+    Note.find({createdBy: id},function(err,notes){
         if(err)
             res.send(err);
         else
+        {
             res.send(notes);
+        }
     })
 });
 

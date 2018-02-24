@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $('.login').show();
-    $('.main_part').hide();          
+    
+
     chrome.storage.sync.get("loggedIn",function(data){
         if(data.loggedIn===undefined)
         {
@@ -16,7 +16,6 @@ $(document).ready(function(){
             $('.login').hide();
             $('.main_part').show();           
         }
-        
     });
 
     $('.link_signup').click(function(){
@@ -38,9 +37,9 @@ $(document).ready(function(){
             $.post("http://localhost:3000/users/" + username,{password:password}, function(data){
                 console.log(data);
                 if(data.statusText === "Success")
-                {
+                {   
                     chrome.storage.sync.set({"loggedIn": data.user_id}, function(){
-                        console.log("Set hua?");
+                        console.log("Set hua?" + data.loggedIn);
                     });
                     $('.main_part').show();
                     $('.login').hide();
@@ -106,149 +105,155 @@ $(document).ready(function(){
         });
         
     });
-    
+
     $('#pagination-demo').twbsPagination({
 
-        totalPages: 35,
-        visiblePages: 4,
-        onPageClick: function (event, page) {
+            totalPages: 35,
+            visiblePages: 4,
+            onPageClick: function (event, page) {
 
-            var load = function (page) {  //A function which loads the current page
+                var refresh = function (page) {  //A function which refreshes the current page
 
-                $($('.text')[0]).focus();
+                    $($('.text')[0]).focus();
+                    chrome.storage.sync.get("loggedIn",function(data){
 
-                $.get("http://localhost:3000/notes", function(lists){
+                    $.get("http://localhost:3000/notes/" + data.loggedIn, function(lists){
 
-                    lists.sort(function(a,b){
-                        return b.date > a.date;
-                    });
+                        lists.sort(function(a,b){
+                            return b.date > a.date;
+                        });
 
-                    var pagelist = lists.slice((page-1)*pagelimit, page*pagelimit);
-                    var ol = $('.lists');
-                    ol.empty();
-                    var li = [];
-                    checkbox = '<input type="checkbox"  class="checkbox">';
-                    buttons =
-                        '<ul class="notebuttons">' +
-                        '<li><button type="button" class="editbutton">Edit</button></li>' +
-                        '<li><button type="button" class="notebutton">Show</button></li>' +
-                        '</ul>';
-                    for(i in pagelist){
-                        li[i] =
-                            '<li class="listItems">'+checkbox+'' +
-                            '<span class="done check title">'+ pagelist[i].title +'</span>'
-                            +buttons+
-                            '<div class="note">' +
-                            '<p class="text">'+ pagelist[i].content +'</p>' +
-                            '</div>'+
-                            '</li> <br>';
-                    }
-                    ol.append(li);
+                        var pagelist = lists.slice((page-1)*pagelimit, page*pagelimit);
+                        var ol = $('.lists');
+                        ol.empty();
+                        var li = [];
+                        checkbox = '<input type="checkbox"  class="checkbox">';
+                        buttons =
+                            '<ul class="notebuttons">' +
+                                '<li><button type="button" class="editbutton">Edit</button></li>' +
+                                '<li><button type="button" class="notebutton">Show</button></li>' +
+                            '</ul>';
+                        for(i in pagelist){
+                            li[i] =
+                                '<li class="listItems">'+checkbox+'' +
+                                    '<span class="done check title">'+ pagelist[i].title +'</span>'
+                                    +buttons+
+                                    '<div class="note">' +
+                                        '<p class="text">'+ pagelist[i].content +'</p>' +
+                                    '</div>'+
+                                '</li> <br>';
+                        }
+                        ol.append(li);
 
-                    $('.checkbox').click(function(){
-                        for (i in li)
-                            if ($($('.checkbox')[i]).prop("checked"))
-                                lists[(page-1)*pagelimit+parseInt(i)].done = true;
+                        $('.checkbox').click(function(){
+                            for (i in li)
+                                if ($($('.checkbox')[i]).prop("checked"))
+                                    lists[(page-1)*pagelimit+parseInt(i)].done = true;
+                                else
+                                    lists[(page-1)*pagelimit+parseInt(i)].done = false;
+                        });
+
+                        $('.container').css({"width":"250px"});
+                        $('.note').css({"width":"80%"});
+
+                        $('.notebutton').click(function(){
+                            var note = $(this).parent().parent().next(".note");
+                            note.toggle();
+                            if (note.css("display")==="none")
+                                $(this).text('Show');
                             else
-                                lists[(page-1)*pagelimit+parseInt(i)].done = false;
-                    });
+                                $(this).text('Hide');
+                        });
 
-                    $('.container').css({"width":"250px"});
-                    $('.note').css({"width":"80%"});
+                        $('#page-content').text('Page ' + page);
 
-                    $('.notebutton').click(function(){
-                        var note = $(this).parent().parent().next(".note");
-                        note.toggle();
-                        if (note.css("display")==="none")
-                            $(this).text('Show');
-                        else
-                            $(this).text('Hide');
-                    });
-
-                    $('#page-content').text('Page ' + page);
-
-                    $('.addbutton').click(function(){               //function which adds a new entry
-                        remove();
-
-                        text=$('.text');
-                        if ($(text[0]).val()!==''){
-                            var d = new Date();
-                            var newNote = {
-                                title: $(text[0]).val(),
-                                content: $(text[1]).val(),
-                                createdBy : "user",
-                                date: d,
-                                done:false
-                            };
-                            $.post("http://localhost:3000/notes", newNote, function() {
-                                location.reload();
-                            });
-
-                            $(text[0]).val('');
-                            $(text[1]).val('');
-                        }
-                        this.value = "Add";
-                    });
-
-                    var remove = function(){        //function which removes the checked items
-                        for(i in lists) {
-                            if(lists[i].done) {
-                                $.ajax ({
-                                    type: 'DELETE',
-                                    url: "http://localhost:3000/notes/"+lists[i]._id
-                                });
-                            }
-                        }
-
-                    };
-
-                    $('.removebutton').click(function(){            //function for removing
-                        remove();
-                        refresh(page);
-                    });
-
-                    $('.editbutton').click(function(){              //function for editing a specific entry
-                        var edititem = $(this).parents('.listItems')[0];
-                        $($(edititem).children('.checkbox')[0]).prop('checked',true);
-                        var indexp = $(edititem).index()/2,
-                            index = (page-1)*pagelimit + indexp,
-                            text = $('.text');
-                        lists[index].done = true;
-                        $(text[0]).val(lists[index].title);
-                        $(text[1]).val(lists[index].content);
-                        $(text[1]).focus();
-                        $(".addbutton").attr('value','Update');
-                        $('.addbutton').addClass('updating');
-
-                    });
-
-                    $('.addbutton .updating').click(function() {
-                        var text = $('.text');
-                        for(i in lists) {
-                            if(lists[i].done) {
-                                $.ajax({
-                                    type: 'PUT',
-                                    url: 'http://localhost:3000/notes/'+lists[i]._id,
-                                    dataType: 'json',
-                                    data: {
+                        $('.addbutton').click(function(){               //function which adds a new entry
+                            //remove();
+                            //console.log("came in add");
+                            // chrome.storage.sync.get("loggedIn",function(data){
+                                text=$('.text');
+                                if ($(text[0]).val()!==''){
+                                    var d = new Date();
+                                    var newNote = {
                                         title: $(text[0]).val(),
                                         content: $(text[1]).val(),
-                                        createdBy : lists[i].createdBy,
-                                        date: lists[i].data,
+                                        createdBy : data.loggedIn,
+                                        date: d,
                                         done:false
-                                    }
-                                });
+                                    };
+                                    $.post("http://localhost:3000/notes", newNote, function() {
+                                        refresh(page);
+                                    });
+
+                                    $(text[0]).val('');
+                                    $(text[1]).val('');
+                                }
+                            // });
+                            this.value = "Add";
+                        });
+
+                        var remove = function(){        //function which removes the checked items
+                            for(i in lists) {
+                                if(lists[i].done) {
+                                    $.ajax ({
+                                       type: 'DELETE',
+                                       url: "http://localhost:3000/notes/"+lists[i]._id
+                                    });
+                                }
                             }
-                        }
-                        $('.addbutton .updating').removeClass('updating');
+
+                        };
+
+                        $('.removebutton').click(function(){            //function for removing
+                            remove();
+                            refresh(page);
+                        });
+
+                        $('.editbutton').click(function(){              //function for editing a specific entry
+                            var edititem = $(this).parents('.listItems')[0];
+                            $($(edititem).children('.checkbox')[0]).prop('checked',true);
+                            var indexp = $(edititem).index()/2,
+                            index = (page-1)*pagelimit + indexp,
+                            text = $('.text');
+                            lists[index].done = true;
+                            $(text[0]).val(lists[index].title);
+                            $(text[1]).val(lists[index].content);
+                            $(text[1]).focus();
+                            $(".addbutton").attr('value','Update');
+                            $('.addbutton').addClass('updating');
+                        });
+
+                        $('.addbutton .updating').click(function() {
+                            console.log("Entered updating");
+                            var text = $('.text');
+                            for(i in lists) {
+                                if(lists[i].done) {
+                                    $.ajax({
+                                        type: 'PUT',
+                                        url: 'http://localhost:3000/notes/'+lists[i]._id,
+                                        dataType: 'json',
+                                        data: {
+                                            title: $(text[0]).val(),
+                                            content: $(text[1]).val(),
+                                            createdBy : lists[i].createdBy,
+                                            date: lists[i].data,
+                                            done:false
+                                        }
+                                    });
+                                }
+                            }
+                            $('.addbutton .updating').removeClass('updating');
+                        });
+
                     });
-
                 });
-            };
 
-            var pagelimit = 2;
+                };
 
-            load(page);
-        }
+                var pagelimit = 2;
+
+                refresh(page);
+            }
     });
+
 });

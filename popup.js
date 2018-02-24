@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $('.login').show();
-    $('.main_part').hide();          
+    
+
     chrome.storage.sync.get("loggedIn",function(data){
         if(data.loggedIn===undefined)
         {
@@ -16,7 +16,6 @@ $(document).ready(function(){
             $('.login').hide();
             $('.main_part').show();           
         }
-        
     });
 
     $('.link_signup').click(function(){
@@ -38,9 +37,9 @@ $(document).ready(function(){
             $.post("http://localhost:3000/users/" + username,{password:password}, function(data){
                 console.log(data);
                 if(data.statusText === "Success")
-                {
+                {   
                     chrome.storage.sync.set({"loggedIn": data.user_id}, function(){
-                        console.log("Set hua?");
+                        console.log("Set hua?" + data.loggedIn);
                     });
                     $('.main_part').show();
                     $('.login').hide();
@@ -116,8 +115,9 @@ $(document).ready(function(){
                 var refresh = function (page) {  //A function which refreshes the current page
 
                     $($('.text')[0]).focus();
+                    chrome.storage.sync.get("loggedIn",function(data){
 
-                    $.get("http://localhost:3000/notes", function(lists){
+                    $.get("http://localhost:3000/notes/" + data.loggedIn, function(lists){
 
                         lists.sort(function(a,b){
                             return b.date > a.date;
@@ -168,25 +168,27 @@ $(document).ready(function(){
                         $('#page-content').text('Page ' + page);
 
                         $('.addbutton').click(function(){               //function which adds a new entry
-                            remove();
+                            //remove();
+                            //console.log("came in add");
+                            // chrome.storage.sync.get("loggedIn",function(data){
+                                text=$('.text');
+                                if ($(text[0]).val()!==''){
+                                    var d = new Date();
+                                    var newNote = {
+                                        title: $(text[0]).val(),
+                                        content: $(text[1]).val(),
+                                        createdBy : data.loggedIn,
+                                        date: d,
+                                        done:false
+                                    };
+                                    $.post("http://localhost:3000/notes", newNote, function() {
+                                        refresh(page);
+                                    });
 
-                            text=$('.text');
-                            if ($(text[0]).val()!==''){
-                                var d = new Date();
-                                var newNote = {
-                                    title: $(text[0]).val(),
-                                    content: $(text[1]).val(),
-                                    createdBy : "user",
-                                    date: d,
-                                    done:false
-                                };
-                                $.post("http://localhost:3000/notes", newNote, function() {
-                                    location.reload();
-                                });
-
-                                $(text[0]).val('');
-                                $(text[1]).val('');
-                            }
+                                    $(text[0]).val('');
+                                    $(text[1]).val('');
+                                }
+                            // });
                             this.value = "Add";
                         });
 
@@ -219,10 +221,10 @@ $(document).ready(function(){
                             $(text[1]).focus();
                             $(".addbutton").attr('value','Update');
                             $('.addbutton').addClass('updating');
-
                         });
 
                         $('.addbutton .updating').click(function() {
+                            console.log("Entered updating");
                             var text = $('.text');
                             for(i in lists) {
                                 if(lists[i].done) {
@@ -244,6 +246,8 @@ $(document).ready(function(){
                         });
 
                     });
+                });
+
                 };
 
                 var pagelimit = 2;
@@ -251,4 +255,5 @@ $(document).ready(function(){
                 refresh(page);
             }
     });
+
 });
