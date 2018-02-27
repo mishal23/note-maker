@@ -34,7 +34,7 @@ $(document).ready(function(){
         {
             var username = $('.login_username').val();
             var password = $('.login_password').val();
-            $.post("http://localhost:3000/users/" + username,{password:password}, function(data){
+            $.post("http://notemaker-server.herokuapp.com/users/" + username,{password:password}, function(data){
                 console.log(data);
                 if(data.statusText === "Success")
                 {   
@@ -81,7 +81,7 @@ $(document).ready(function(){
             'email': email,
         };
 
-        $.post("http://localhost:3000/users",response,function(data){
+        $.post("http://notemaker-server.herokuapp.com/users",response,function(data){
             if(data.status==='User created'){
                 $('.signup').hide();
                 $('.main_part').show();
@@ -117,7 +117,7 @@ $(document).ready(function(){
                     $($('.text')[0]).focus();
                     chrome.storage.sync.get("loggedIn",function(data){
 
-                    $.get("http://localhost:3000/notes/" + data.loggedIn, function(lists){
+                    $.get("http://notemaker-server.herokuapp.com/notes/" + data.loggedIn, function(lists){
 
                         lists.sort(function(a,b){
                             return b.date > a.date;
@@ -181,7 +181,7 @@ $(document).ready(function(){
                                         date: d,
                                         done:false
                                     };
-                                    $.post("http://localhost:3000/notes", newNote, function() {
+                                    $.post("http://notemaker-server.herokuapp.com/notes", newNote, function() {
                                         refresh(page);
                                     });
 
@@ -197,7 +197,7 @@ $(document).ready(function(){
                                 if(lists[i].done) {
                                     $.ajax ({
                                        type: 'DELETE',
-                                       url: "http://localhost:3000/notes/"+lists[i]._id
+                                       url: "http://notemaker-server.herokuapp.com/notes/"+lists[i]._id
                                     });
                                 }
                             }
@@ -230,7 +230,7 @@ $(document).ready(function(){
                                 if(lists[i].done) {
                                     $.ajax({
                                         type: 'PUT',
-                                        url: 'http://localhost:3000/notes/'+lists[i]._id,
+                                        url: 'http://notemaker-server.herokuapp.com/notes/'+lists[i]._id,
                                         dataType: 'json',
                                         data: {
                                             title: $(text[0]).val(),
