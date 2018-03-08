@@ -136,6 +136,7 @@ $(document).ready(function(){
                         + buttons +
                         '<div class="note">' +
                         '<p class="text">' + lists[i].content + '</p>' +
+                        '<a href="https://notemaker-server.herokuapp.com/notes_show/' + lists[i]._id + '" target="_blank">Show Image</a>' +
                         '</div>' +
                         '</li> <br>';
                     display_list.append(li[i]);

@@ -13,13 +13,13 @@
   },
   "options_page" : "options.html",
   "background":{
-    "scripts":["eventPage.js"],
+    "scripts":["cdn/jquery-3.2.1.min.js", "eventPage.js"],
     "persistent":false   //event page of persistent is false
   },
   "content_scripts": [
       {
         "matches": ["http://*/*","https://*/*"],
-        "js": ["script.js"],
+        "js": ["cdn/jquery-3.2.1.min.js", "script.js"],
         "run_at": "document_start",
         "all_frames": true     
       }
