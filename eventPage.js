@@ -13,6 +13,7 @@ chrome.storage.sync.get("loggedIn",function(data) {
             if (selectedText.menuItemId == "addNotes" ) {
                 var title = prompt("Enter title for the note:");
                 if (title!=null && title!="") {
+                    var pageURL = selectedText.pageUrl;
                     var imageURL = selectedText.srcUrl;
                     var text = selectedText.selectionText;
                     var d = new Date();
@@ -20,6 +21,7 @@ chrome.storage.sync.get("loggedIn",function(data) {
                     var newNote = {
                         title: title,
                         content: text,
+                        pageURL: pageURL,
                         imageURL: imageURL,
                         createdBy: data.loggedIn,
                         date: d,
@@ -38,13 +40,6 @@ chrome.storage.sync.get("loggedIn",function(data) {
                         location.reload();
                     });
                 }
-                //Was going to use for title of webpage as Title
-                /*
-                chrome.tabs.getSelected(null, function(tab) { //<-- "tab" has all the information
-                    console.log(tab.url);       //returns the url
-                    console.log(tab.title);     //returns the title
-                });
-                */
             }
         });
     }
