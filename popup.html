@@ -7,13 +7,13 @@
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
     <link rel="stylesheet" href="cdn/bootstrap.min.css">
-    <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
     <script src="popup.js"></script>
-
+    <link rel="stylesheet" href="cdn/font_belleza.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style-popup.css">
 </head>
 <body>
-<h1 class="head">NoteMaker Popup</h1>
+<h1 class="head">NoteMaker</h1>
 
 <div>
     <div class="container signup">
@@ -22,35 +22,33 @@
         <input id="password" type="password" class="form-control" placeholder="Enter password" ><br>
         <input id="confirm-password" type="password" class="form-control" placeholder="Re-enter password" ><br>
         <button id="signup-button" class="btn">Create Account</button>
-
     </div>
 
     <div class="container login">
         <input type="text" name="username" class="form-control login_username" placeholder="Enter username"><br>
-        <input type="password" name="password" class="form-control login_password" placeholder="Enter Password"><br>
-        <button class="btn loginbtn" style="margin: 0px 50px 10px; display: inline-block;">Login</button>
-        <button class="btn link_signup d-flex" style="margin: 0px 50px 10px; display: inline-block;">Signup</button>
+        <input type="password" name="password" class="form-control login_password" placeholder="Enter Password">
         <p class="valid">Enter valid username/password</p>
+        <br>
+        <button class="btn loginbtn " style="margin: 0px 70px; display: inline-block;">Login</button>
+        <button class="btn link_signup " style="margin: 0px auto; display: inline-block;">Signup</button>
     </div>
 
     <div class="main_part">
         <div class="container ">
+            <p id="no_title" class="add-alert">Please add a title!</p>
             <input class="form-control" type="text" id="title" class="text" placeholder="Enter Title">
-            <input class="form-control" type="text" id="content" class="text" placeholder="Enter Notes">
-            <br><p id="no_tittle"></p><br>
-            <input type="button" id="addbutton" value="Add">
-            <input type="button" id="removebutton" value="Remove ticked">
+            <textarea id="content" class="form-control" class="text" placeholder="Enter Notes" style="max-height: 200px; min-height: 40px;"></textarea>
+            <br>
+            <input type="button" id="addbutton"  value="Add">
+            <input type="button" id="removebutton"  value="Remove ticked">
         </div>
         <br>
-
-        <br>
-        <br>
+        <div class="container">
         <ul class="lists" style="list-style-type: none" ></ul>
-        <ul id="pagination-demo" class="pagination-sm"></ul>
-        <br>
-        <button class="btn logout">Logout</button>
+        </div>
     </div>
 </div>
+<i class="fa fa-sign-out logout"></i>
 </body>
 
 </html>

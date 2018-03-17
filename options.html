@@ -2,56 +2,54 @@
 <html>
 <head>
     <title>NoteMaker</title>
-   
+
     <script src="cdn/jquery-3.2.1.min.js"></script>
     <script src="cdn/tether.min.js"></script>
     <script src="cdn/bootstrap.min.js"></script>
     <link rel="stylesheet" href="cdn/bootstrap.min.css">
-    <script type="text/javascript" src="cdn/jquery.twbsPagination.js"></script>
-    <script src="options.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="popup.js"></script>
+    <link rel="stylesheet" href="cdn/font_belleza.css">
 
     <link rel="stylesheet" type="text/css" href="style-options.css">
 </head>
 <body>
-<h1 class="head">NoteMaker Options</h1>
-   <div class="container signup">
-    <input id="username" type="text" class="form-control" placeholder="Enter Username" ><br>
-    <input id="email" type=text" class="form-control" placeholder="Enter Email-id" ><br>
-    <input id="password" type="password" class="form-control" placeholder="Enter password" ><br>
-    <input id="confirm-password" type="password" class="form-control" placeholder="Re-enter password" ><br>
-    <button id="signup-button" class="btn">Create Account</button>
+<h1 class="head">NoteMaker</h1>
 
-</div>
+<div>
+    <div class="container signup">
+        <input id="username" type="text" class="form-control" placeholder="Enter Username" ><br>
+        <input id="email" type=text" class="form-control" placeholder="Enter Email-id" ><br>
+        <input id="password" type="password" class="form-control" placeholder="Enter password" ><br>
+        <input id="confirm-password" type="password" class="form-control" placeholder="Re-enter password" ><br>
+        <button id="signup-button" class="btn">Create Account</button>
+    </div>
 
-<div class="container login">
-    <input type="text" name="username" class="form-control login_username" placeholder="Enter username"><br>
-    <input type="password" name="password" class="form-control login_password" placeholder="Enter Password"><br>
-    <button class="btn loginbtn" style="margin: 0px 50px 10px; display: inline-block;">Login</button>
-    <button class="btn link_signup d-flex" style="margin: 0px 50px 10px; display: inline-block;">Signup</button>
-    <p class="valid">Enter valid username/password</p>
-</div> 
-    
+    <div class="container login">
+        <input type="text" name="username" class="form-control login_username" placeholder="Enter username"><br>
+        <input type="password" name="password" class="form-control login_password" placeholder="Enter Password">
+        <p class="valid">Enter valid username/password</p>
+        <br>
+        <button class="btn loginbtn " style="margin: 0px 70px; display: inline-block;">Login</button>
+        <button class="btn link_signup " style="margin: 0px auto; display: inline-block;">Signup</button>
+    </div>
+
     <div class="main_part">
-    <form class="container1">
-        <input type="text" placeholder="Enter Title" class="text" />
-		<input type="text" placeholder="Enter Notes" class="text"/>
-		<br><br>
-        <input type="button" class="addbutton" value="Add"/>
-        <input type="button" class="removebutton" value="Remove ticked"/>
-    </form>
-    <br>
-
-    <h5 id ="page-content" class="container page-no"></h5>
-    <br>
-    <br>
-    <ul class="lists" style="list-style-type: none" ></ul>
-    <ul id="pagination-demo" class="pagination-sm"></ul>
-    <br>    
-    <button class="btn logout">Logout</button> 
+        <div class="container ">
+            <p id="no_title" class="add-alert">Please add a title!</p>
+            <input class="form-control" type="text" id="title" class="text" placeholder="Enter Title">
+            <textarea id="content" class="form-control" class="text" placeholder="Enter Notes" style="max-height: 200px; min-height: 40px;"></textarea>
+            <br>
+            <input type="button" id="addbutton" value="Add">
+            <input type="button" id="removebutton" value="Remove ticked">
+        </div>
+        <br>
+        <div class="container">
+            <ul class="lists" style="list-style-type: none" ></ul>
+        </div>
+        <i class="fa fa-sign-out logout"></i>
+    </div>
 </div>
 </body>
-<script>
-        
-</script>
 
 </html>

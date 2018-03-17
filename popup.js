@@ -126,17 +126,15 @@ $(document).ready(function(){
                 buttons =
                     '<ul class="notebuttons">' +
                     '<li><button type="button" class="editbutton">Edit</button></li>' +
-                    '<li><button type="button" class="notebutton">Show</button></li>' +
                     '</ul>';
 
                 for (i in lists) {
                     li[i] =
                         '<li class="listItems">' + checkbox + '' +
-                        '<span class="done check title">' + lists[i].title + '</span>'
+                        '<a href="https://notemaker-server.herokuapp.com/notes_show/' + lists[i]._id + '" target="_blank"><span class="done check title">' + lists[i].title + '</span></a>'
                         + buttons +
                         '<div class="note">' +
-                        '<p class="text">' + lists[i].content + '</p>' +
-                        '<a href="https://notemaker-server.herokuapp.com/notes_show/' + lists[i]._id + '" target="_blank">Full View</a>' +
+                        '<p class="text content">' + lists[i].content + '</p>' +
                         '</div>' +
                         '</li> <br>';
                     display_list.append(li[i]);
@@ -169,15 +167,6 @@ $(document).ready(function(){
                     }
                 });
 
-
-                $('.notebutton').click(function () {
-                    var note = $(this).parent().parent().next(".note");
-                    note.toggle();
-                    if (note.css("display") === "none")
-                        $(this).text('Show');
-                    else
-                        $(this).text('Hide');
-                });
 
                 $('.editbutton').click(function () {              //function for editing a specific entry
                     var edititem = $(this).parents('.listItems')[0];
@@ -217,7 +206,7 @@ $(document).ready(function(){
         $('#addbutton').click(function () {               //function which adds a new entry
             this.value = "Add";
             if ($('#title').val() !== '') {
-                $('#no_tittle').text("");
+                $('#no_title').text("");
 
                 var d = new Date();
                 var newNote = {
@@ -235,12 +224,14 @@ $(document).ready(function(){
                         dataType: 'json',
                         data: newNote
                     }).done(function(){
+                        $('.add-alert').removeClass('after-add');
                         edit=false;
                         refresh();
                     });
                 }
                 else {
                     $.post("http://notemaker-server.herokuapp.com/notes", newNote, function () {
+                        $('.add-alert').removeClass('after-add');
                         edit=false;
                         refresh();
                     });
@@ -248,7 +239,8 @@ $(document).ready(function(){
 
             }
             else{
-                $('#no_tittle').text("Please Add a title!");
+                $('.add-alert').addClass('after-add');
+                $('#title').focus();
             }
 
         });

@@ -2,11 +2,9 @@ h2{
     color: orange;
 }
 body{
-    background-color: lightgoldenrodyellow;
+    background-color: #bfc5d2;
 }
-.page-no{
-    text-align: center;
-}
+
 .done-true{
     color: black;
     opacity: 0.7;
@@ -18,34 +16,37 @@ body{
 }
 .checkbox{
     zoom: 2;
-    position: relative;
+    position: absolute;
+    left: 7px;
 }
-.addbutton{
-    background-color: darkorange;
-    border-color: darkorange;
+#addbutton{
+    background-color: #88c0ff;
+    border-color: #88c0ff;
+    border-radius: 10px;
     color: black;
     font-weight: bold;
     padding: 7px 7px 7px 7px;
     font-size: 15px;
 }
 
+
 .notebuttons{
-	list-style-type: none;
-	list-style-position: relative;
-	position: relative;
+    list-style-type: none;
+    list-style-position: relative;
+    position: relative;
     right:0;
     float:right;
 }
 
 .notebuttons li{
-		margin-top: 0px;
-	}
+    margin-top: 0px;
+}
 
 .editbutton{
     position: relative;
     border-radius: 5px;
-    background-color: #00ffff;
-    border-color: #00ffff;
+    background-color: #4fc0ff;
+    border-color: #4fc0ff;
     color: black;
     font-weight: bold;
     padding: 0px 7px;
@@ -62,7 +63,7 @@ body{
     font-weight: bold;
     padding: 0px 7px;
     font-size: 10px;
-    float: right; 
+    float: right;
 }
 
 
@@ -70,9 +71,11 @@ body{
     padding: 7px 7px 7px 7px;
 }
 
-.removebutton{
-    background-color: gold;
-    border-color: gold;
+#removebutton{
+    background-color: #3f5670;
+    color: white;
+    border-color: #3f5670;
+    border-radius: 10px;
     float: right;
     position: relative;
     padding: 7px 7px 7px 7px;
@@ -81,34 +84,75 @@ body{
 }
 
 .head{
-    background-color: darkorange;
+    background-color: #105cff;
     color: white;
     text-align: center;
     padding-top: 8px;
     padding-bottom: 8px;
 }
 
-.pagination-sm{
-    padding-left: 500px;
+.logout{
+    position: absolute;
+    top: 13px;
+    color: #1c0664;
+    right: 0;
+    font-size: 30px;
 }
 
-.container1{
-    padding-left: 70px;
-    padding-right: 30px;
+.title{
+    font-family:  Patua One , cursive;
+}
+.content{
+    font-family:  Belleza, sans-serif;
+    height : 50px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    border: solid #636c72 2px;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+.link{
+    color: #3c763d;
+}
+::-webkit-scrollbar {
+    display: none;
 }
 
-.lists{
-    padding-right: 30px;
+/* Tooltip text */
+.add-alert {
+
+    display: none;
+    background-color: #7b7dff;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    /* Position the tooltip text */
+    position: relative;
+    z-index: 1;
+    bottom: 125%;
+
+    /* Fade in tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
 }
 
-.note{
-	background-color: #CFF66B;
-	background-position: relative;
-	margin: 0 30px;
-	border:2px solid #97C64B;
-	border-radius: 10px;
-	display: none;
-	word-wrap: break-word;
+/* Tooltip arrow */
+.add-alert::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #7264ff transparent transparent transparent;
+
 }
 
-
+/* Show the tooltip text when you mouse over the tooltip container */
+.after-add {
+    display: block;
+    opacity: 1;
+}
