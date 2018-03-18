@@ -2,7 +2,8 @@ h2{
     color: orange;
 }
 body{
-    background-color: #eae6ff;
+    background-image: url("images/bg1.jpg");
+    background-size: contain;
 }
 
 .done-true{
