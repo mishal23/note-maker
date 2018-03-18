@@ -2,7 +2,7 @@ h2{
     color: orange;
 }
 body{
-    background-color: #bfc5d2;
+    background-color: #eae6ff;
     width: 400px;
 }
 
@@ -22,8 +22,6 @@ body{
 }
 #addbutton{
     background-color: #88c0ff;
-    border-color: #88c0ff;
-    border-radius: 10px;
     color: black;
     font-weight: bold;
     padding: 7px 7px 7px 7px;
@@ -73,10 +71,8 @@ body{
 }
 
 #removebutton{
-    background-color: #3f5670;
+    background-color: #565670;
     color: white;
-    border-color: #3f5670;
-    border-radius: 10px;
     float: right;
     position: relative;
     padding: 7px 7px 7px 7px;

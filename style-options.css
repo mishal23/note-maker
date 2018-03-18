@@ -2,7 +2,7 @@ h2{
     color: orange;
 }
 body{
-    background-color: #bfc5d2;
+    background-color: #eae6ff;
 }
 
 .done-true{
@@ -20,10 +20,6 @@ body{
     left: 7px;
 }
 #addbutton{
-    background-color: #88c0ff;
-    border-color: #88c0ff;
-    border-radius: 10px;
-    color: black;
     font-weight: bold;
     padding: 7px 7px 7px 7px;
     font-size: 15px;
@@ -72,10 +68,7 @@ body{
 }
 
 #removebutton{
-    background-color: #3f5670;
-    color: white;
-    border-color: #3f5670;
-    border-radius: 10px;
+    background-color: #565670;
     float: right;
     position: relative;
     padding: 7px 7px 7px 7px;
