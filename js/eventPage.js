@@ -32,7 +32,7 @@ chrome.storage.sync.get("loggedIn",function(data) {
                     $.post("http://notemaker-server.herokuapp.com/notes", newNote, function () {
                         var notification = {
                             type: 'basic',
-                            iconUrl: 'icon.png',
+                            iconUrl: 'images/icon.png',
                             title: 'Note created',
                             message: 'Note with title: ' + newNote.title + ' added'
                         };
