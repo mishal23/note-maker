@@ -5,6 +5,7 @@
 - It adds an option ```Add to NoteMaker``` in the context menu of your browser. 
 - Whenever any text or image is selected from any website, upon right clicking you can save the note to your account.
 - All your notes are saved to cloud database, hence can be accessed from anywhere anytime.
+- If you visit the website again, the text selected by you is highlighted.
 - You can also edit the text notes, according to your need.
 
 ### How to Use?
